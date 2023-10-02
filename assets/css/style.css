@@ -1,0 +1,236 @@
+@keyframes animasi2{
+    form {background: red;}
+    to {background: #007bff;}
+}
+
+.container-fluid {
+    max-width: 100%;
+    padding: 0;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    background-color: #dcdddf;
+}
+
+.judul-kategori {
+    background-color: rgb(165, 164, 164);
+    padding: 5px 10px;
+}
+
+.judul-produk {
+    background-color: rgb(181, 181, 185);
+    padding: 5px 10px;
+}
+
+.img-kategori {
+    width: 90px;
+    height: 90px;
+    border-radius: 5px;
+}
+
+.img-kategori:hover {
+    transform: scale(1.1);
+}
+
+.row-container {
+    background-color: rgb(165, 164, 164);
+    width: 101%;
+}
+
+.produk-container {
+    background-color: rgb(181, 181, 185);
+}
+
+.user {
+    font-family:'Times New Roman', Times, serif;
+    font-size: 22px;
+}
+
+
+
+.tambah {
+    margin-top: 2vh;
+    margin-bottom: 3vh;
+    width: 100%;
+    height: 8vh;
+    background: #333;
+    display: flex;
+    justify-content: space-between;
+}
+
+.listing-text {
+    font-size: 6vh;
+    align-content: center;
+    color: #fff;
+    font-family:'Times New Roman', Times, serif;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.logout {
+    background-color: #6e849b;
+    color: #fff;
+    border: none;
+    padding: 8px 18px;
+    margin-right: 2px;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+}
+
+.kategoriproduk {
+    padding-top: 1rem;
+    background-color: #f3efd8;
+    padding-bottom: 1rem;
+}
+
+.kategori {
+    margin-left: -20px;
+    margin-right: 20px;
+    margin-bottom: 15px;
+}
+
+.card-img {
+    max-width: 100px;
+}
+  
+
+.produk-container {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 250px;
+    padding: 5px;
+    margin: 3vh;
+    position: relative;
+    box-shadow: 1px 1px 5px rgb(187, 188, 188);
+    border-radius: 5px;
+}
+
+.card:hover {
+    box-shadow: 3px 3px 10px rgb(35, 35, 36);
+    transition: 0.3s;
+}
+.badge-produk{
+    position: absolute;
+    left: 2px;
+    top: 5px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    background: red;
+    color: #fff;
+    padding: 3px 20px;
+    border-radius: 0 8px 0 8px;
+    animation-name: animasi2;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+ }
+
+.card img {
+    max-width: 100%;
+    height: 40vh;
+    border-bottom: #888686 solid;
+}
+
+.card-body {
+    padding: 15px ;
+    background-color: #fff;
+    color: black;
+}
+.card-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 0;
+    color: black;
+ }
+
+.deskripsi {
+    font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 0;
+}
+
+.harga {
+    font-family: 'Times New Roman', Times, serif;
+    text-align: end;
+    font-weight: 300;
+}
+
+.order-button {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 8px 66px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 3px;
+    cursor: pointer;
+}
+
+.cart-button {
+    background-color: rgb(115, 142, 186);
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 8px 15px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/*login*/ 
+.login{
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to top, #c5c5eb 50%, #6ed1e7 90%) no-repeat;
+}
+
+a {
+    text-decoration: none;
+}
+
+.box-area{
+    width: 930px;
+}
+
+.right-box{
+    padding: 40px 30px 40px 40px;
+}
+
+
+::placeholder{
+    font-size: 16px;
+}
+
+.rounded-4{
+    border-radius: 10px;
+}
+.rounded-5{
+    border-radius: 20px;
+}
+
+
+@media only screen and (max-width: 768px){
+
+     .box-area{
+        margin: 0 10px;
+
+     }
+     .left-box{
+        height: 100px;
+        overflow: hidden;
+     }
+     .right-box{
+        padding: 20px;
+     }
+
+}
