@@ -9,7 +9,6 @@
     align-content: center;
     justify-content: center;
     align-items: center;
-    background-color: #dcdddf;
 }
 
 .judul-kategori {
@@ -18,7 +17,7 @@
 }
 
 .judul-produk {
-    background-color: rgb(181, 181, 185);
+    background-color: rgb(228, 223, 223);
     padding: 5px 10px;
 }
 
@@ -37,9 +36,6 @@
     width: 101%;
 }
 
-.produk-container {
-    background-color: rgb(181, 181, 185);
-}
 
 .user {
     font-family:'Times New Roman', Times, serif;
@@ -93,9 +89,9 @@
 .card-img {
     max-width: 100px;
 }
-  
 
 .produk-container {
+    background-color: rgb(228, 223, 223);
     width: 100%;
     padding: 0;
     display: flex;
