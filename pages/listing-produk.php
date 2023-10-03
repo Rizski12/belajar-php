@@ -13,8 +13,8 @@ if (!isset($_SESSION['username'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listing Produk</title>
-    <link rel="stylesheet" type="text/css" href="../assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="../dist/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../dist/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
 </head>
 <body>
@@ -36,7 +36,7 @@ if (!isset($_SESSION['username'])) {
              <a class="nav-link active" aria-current="page" href="#">Beranda</a>
             </li>
             <li class="nav-item">
-             <a class="nav-link" href="#">Notifikasi</a>
+             <a class="nav-link" href="dashboard.php">Dashboard</a>
             </li>
             <li class="nav-item">
              <a class="nav-link" href="#">Keranjang</a>
@@ -123,9 +123,9 @@ if (!isset($_SESSION['username'])) {
     </div>
         <div class="produk-container mt-2">
             <?php
-            include 'produk.php';
+            include 'variabel-produk.php';
 
-            foreach ($produk as $item) {
+            foreach ($produkList as $item) {
                 echo '<div class="card ml-4" style="width: 17rem">';
                 echo '<span class="badge-produk">' .$item['badge'] . '</span>';
                 echo '<img src="' . $item['gambar'] . '" alt="' . $item['nama'] . '">';
