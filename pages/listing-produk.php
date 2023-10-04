@@ -122,29 +122,206 @@ if (!isset($_SESSION['username'])) {
         <h5 class="text-center text-light">PRODUK</h5>
     </div>
         <div class="produk-container mt-2">
-            <?php
-            include 'variabel-produk.php';
+        <?php
+        require_once 'variabel-produk.php';
 
-            foreach ($produkList as $item) {
-                echo '<div class="card ml-4" style="width: 17rem">';
-                echo '<span class="badge-produk">' .$item['badge'] . '</span>';
-                echo '<img src="' . $item['gambar'] . '" alt="' . $item['nama'] . '">';
-                echo '<div class="card-body">';
-                echo '<h3 class="card-title">' . $item['nama'] . '</h3>';
-                echo '<p class="deskripsi">' . $item['deskripsi'] . '</p>';
-                echo '<p class="toko">' . $item['toko'] . '</p>';
-                echo '<h5 class="harga">Harga: $' . $item['harga'] . '</h5>';
-                echo '<div class="flex">';
-                echo '<button class="order-button me-md-2">Order</button>';
-                echo '<button class="cart-button"><i class="fas fa-shopping-cart"></i></button>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-            }
-            ?>
+        // Tampilan data produk1
+        echo '<div class="card ml-4" style="width: 17rem">';
+        echo '<span class="badge-produk">' .$produk1['badge'] . '</span>';
+        echo '<img src="' . $produk1['gambar'] . '" alt="' . $produk1['nama'] . '">';
+        echo '<div class="card-body">';
+        echo '<h3 class="card-title">' . $produk1['nama'] . '</h3>';
+        echo '<p class="deskripsi">' . $produk1['deskripsi'] . '</p>';
+        echo '<p class="toko">' . $produk1['toko'] . '</p>';
+        echo '<h5 class="harga">Harga: $' . $produk1['harga'] . '</h5>';
+        echo '<div class="flex">';
+        echo '<button class="order-button me-md-2">Order</button>';
+        echo '<button class="cart-button"><i class="fas fa-shopping-cart"></i></button>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+
+        // Tampilan data produk2
+        echo '<div class="card ml-4" style="width: 17rem">';
+        echo '<span class="badge-produk">' .$produk2['badge'] . '</span>';
+        echo '<img src="' . $produk2['gambar'] . '" alt="' . $produk2['nama'] . '">';
+        echo '<div class="card-body">';
+        echo '<h3 class="card-title">' . $produk2['nama'] . '</h3>';
+        echo '<p class="deskripsi">' . $produk2['deskripsi'] . '</p>';
+        echo '<p class="toko">' . $produk2['toko'] . '</p>';
+        echo '<h5 class="harga">Harga: $' . $produk2['harga'] . '</h5>';
+        echo '<div class="flex">';
+        echo '<button class="order-button me-md-2">Order</button>';
+        echo '<button class="cart-button"><i class="fas fa-shopping-cart"></i></button>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+
+        // Tampilan data produk3
+        echo '<div class="card ml-4" style="width: 17rem">';
+        echo '<span class="badge-produk">' .$produk3['badge'] . '</span>';
+        echo '<img src="' . $produk3['gambar'] . '" alt="' . $produk3['nama'] . '">';
+        echo '<div class="card-body">';
+        echo '<h3 class="card-title">' . $produk3['nama'] . '</h3>';
+        echo '<p class="deskripsi">' . $produk3['deskripsi'] . '</p>';
+        echo '<p class="toko">' . $produk3['toko'] . '</p>';
+        echo '<h5 class="harga">Harga: $' . $produk3['harga'] . '</h5>';
+        echo '<div class="flex">';
+        echo '<button class="order-button me-md-2">Order</button>';
+        echo '<button class="cart-button"><i class="fas fa-shopping-cart"></i></button>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+
+        // Tampilan data produk4
+        echo '<div class="card ml-4" style="width: 17rem">';
+        echo '<span class="badge-produk">' .$produk4['badge'] . '</span>';
+        echo '<img src="' . $produk4['gambar'] . '" alt="' . $produk4['nama'] . '">';
+        echo '<div class="card-body">';
+        echo '<h3 class="card-title">' . $produk4['nama'] . '</h3>';
+        echo '<p class="deskripsi">' . $produk4['deskripsi'] . '</p>';
+        echo '<p class="toko">' . $produk4['toko'] . '</p>';
+        echo '<h5 class="harga">Harga: $' . $produk4['harga'] . '</h5>';
+        echo '<div class="flex">';
+        echo '<button class="order-button me-md-2">Order</button>';
+        echo '<button class="cart-button"><i class="fas fa-shopping-cart"></i></button>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+
+        // Tampilan data produk5
+        echo '<div class="card ml-4" style="width: 17rem">';
+        echo '<span class="badge-produk">' .$produk5['badge'] . '</span>';
+        echo '<img src="' . $produk5['gambar'] . '" alt="' . $produk5['nama'] . '">';
+        echo '<div class="card-body">';
+        echo '<h3 class="card-title">' . $produk5['nama'] . '</h3>';
+        echo '<p class="deskripsi">' . $produk5['deskripsi'] . '</p>';
+        echo '<p class="toko">' . $produk5['toko'] . '</p>';
+        echo '<h5 class="harga">Harga: $' . $produk5['harga'] . '</h5>';
+        echo '<div class="flex">';
+        echo '<button class="order-button me-md-2">Order</button>';
+        echo '<button class="cart-button"><i class="fas fa-shopping-cart"></i></button>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+
+        // Tampilan data produk6
+        echo '<div class="card ml-4" style="width: 17rem">';
+        echo '<span class="badge-produk">' .$produk6['badge'] . '</span>';
+        echo '<img src="' . $produk6['gambar'] . '" alt="' . $produk6['nama'] . '">';
+        echo '<div class="card-body">';
+        echo '<h3 class="card-title">' . $produk6['nama'] . '</h3>';
+        echo '<p class="deskripsi">' . $produk6['deskripsi'] . '</p>';
+        echo '<p class="toko">' . $produk6['toko'] . '</p>';
+        echo '<h5 class="harga">Harga: $' . $produk6['harga'] . '</h5>';
+        echo '<div class="flex">';
+        echo '<button class="order-button me-md-2">Order</button>';
+        echo '<button class="cart-button"><i class="fas fa-shopping-cart"></i></button>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+
+        // Tampilan data produk7
+        echo '<div class="card ml-4" style="width: 17rem">';
+        echo '<span class="badge-produk">' .$produk7['badge'] . '</span>';
+        echo '<img src="' . $produk7['gambar'] . '" alt="' . $produk7['nama'] . '">';
+        echo '<div class="card-body">';
+        echo '<h3 class="card-title">' . $produk7['nama'] . '</h3>';
+        echo '<p class="deskripsi">' . $produk7['deskripsi'] . '</p>';
+        echo '<p class="toko">' . $produk7['toko'] . '</p>';
+        echo '<h5 class="harga">Harga: $' . $produk7['harga'] . '</h5>';
+        echo '<div class="flex">';
+        echo '<button class="order-button me-md-2">Order</button>';
+        echo '<button class="cart-button"><i class="fas fa-shopping-cart"></i></button>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+
+        // Tampilan data produk8
+        echo '<div class="card ml-4" style="width: 17rem">';
+        echo '<span class="badge-produk">' .$produk8['badge'] . '</span>';
+        echo '<img src="' . $produk8['gambar'] . '" alt="' . $produk8['nama'] . '">';
+        echo '<div class="card-body">';
+        echo '<h3 class="card-title">' . $produk8['nama'] . '</h3>';
+        echo '<p class="deskripsi">' . $produk8['deskripsi'] . '</p>';
+        echo '<p class="toko">' . $produk8['toko'] . '</p>';
+        echo '<h5 class="harga">Harga: $' . $produk8['harga'] . '</h5>';
+        echo '<div class="flex">';
+        echo '<button class="order-button me-md-2">Order</button>';
+        echo '<button class="cart-button"><i class="fas fa-shopping-cart"></i></button>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+
+        // Tampilan data produk9
+        echo '<div class="card ml-4" style="width: 17rem">';
+        echo '<span class="badge-produk">' .$produk9['badge'] . '</span>';
+        echo '<img src="' . $produk9['gambar'] . '" alt="' . $produk9['nama'] . '">';
+        echo '<div class="card-body">';
+        echo '<h3 class="card-title">' . $produk9['nama'] . '</h3>';
+        echo '<p class="deskripsi">' . $produk9['deskripsi'] . '</p>';
+        echo '<p class="toko">' . $produk9['toko'] . '</p>';
+        echo '<h5 class="harga">Harga: $' . $produk9['harga'] . '</h5>';
+        echo '<div class="flex">';
+        echo '<button class="order-button me-md-2">Order</button>';
+        echo '<button class="cart-button"><i class="fas fa-shopping-cart"></i></button>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+
+        // Tampilan data produk10
+        echo '<div class="card ml-4" style="width: 17rem">';
+        echo '<span class="badge-produk">' .$produk10['badge'] . '</span>';
+        echo '<img src="' . $produk10['gambar'] . '" alt="' . $produk10['nama'] . '">';
+        echo '<div class="card-body">';
+        echo '<h3 class="card-title">' . $produk10['nama'] . '</h3>';
+        echo '<p class="deskripsi">' . $produk10['deskripsi'] . '</p>';
+        echo '<p class="toko">' . $produk10['toko'] . '</p>';
+        echo '<h5 class="harga">Harga: $' . $produk10['harga'] . '</h5>';
+        echo '<div class="flex">';
+        echo '<button class="order-button me-md-2">Order</button>';
+        echo '<button class="cart-button"><i class="fas fa-shopping-cart"></i></button>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+
+        // Tampilan data produk11
+        echo '<div class="card ml-4" style="width: 17rem">';
+        echo '<span class="badge-produk">' .$produk11['badge'] . '</span>';
+        echo '<img src="' . $produk11['gambar'] . '" alt="' . $produk11['nama'] . '">';
+        echo '<div class="card-body">';
+        echo '<h3 class="card-title">' . $produk11['nama'] . '</h3>';
+        echo '<p class="deskripsi">' . $produk11['deskripsi'] . '</p>';
+        echo '<p class="toko">' . $produk11['toko'] . '</p>';
+        echo '<h5 class="harga">Harga: $' . $produk11['harga'] . '</h5>';
+        echo '<div class="flex">';
+        echo '<button class="order-button me-md-2">Order</button>';
+        echo '<button class="cart-button"><i class="fas fa-shopping-cart"></i></button>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+
+        // Tampilan data produk12
+        echo '<div class="card ml-4" style="width: 17rem">';
+        echo '<span class="badge-produk">' .$produk12['badge'] . '</span>';
+        echo '<img src="' . $produk12['gambar'] . '" alt="' . $produk12['nama'] . '">';
+        echo '<div class="card-body">';
+        echo '<h3 class="card-title">' . $produk12['nama'] . '</h3>';
+        echo '<p class="deskripsi">' . $produk12['deskripsi'] . '</p>';
+        echo '<p class="toko">' . $produk12['toko'] . '</p>';
+        echo '<h5 class="harga">Harga: $' . $produk12['harga'] . '</h5>';
+        echo '<div class="flex">';
+        echo '<button class="order-button me-md-2">Order</button>';
+        echo '<button class="cart-button"><i class="fas fa-shopping-cart"></i></button>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        ?>
         </div>
     </div>
     <!-- Akhir Produk-->
+
+    
 
      <!--Awal footer-->
     <footer class="bg-dark text-white p-5">
