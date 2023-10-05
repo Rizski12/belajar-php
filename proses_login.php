@@ -1,25 +1,26 @@
 <?php
-// Mulai sesi
-session_start();
+// informasi akun statis
+$static_username = "rizkidian";
+$static_password = "123";
 
-// Cek apakah pengguna sudah login atau belum
-if (isset($_SESSION['username'])) {
-    header("Location: pages/listing-produk.php");
-    exit;
+// Ambil data dari form login
+$username = $_POST['username'];
+$password = $_POST['password'];
+
+// Periksa apakah username atau password kosong
+if (empty($username) || empty($password)) {
+    header("Location: login.php?error=2"); // Parameter error=2 untuk pesan kesalahan form kosong
+    exit();
 }
 
-// Cek apakah formulir login dikirimkan
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = "rizkidian";
-    $password = "123";
-
-    if ($_POST['username'] === $username && $_POST['password'] === $password) {
-        // Jika sesuai, set session dan arahkan ke halaman produk.php
-        $_SESSION['username'] = $username;
-        header("Location: pages/listing-produk.php");
-        exit;
-    } else {
-        echo "Login gagal. Silakan coba lagi.";
-    }
+// Cek apakah username dan password sesuai dengan akun statis
+if ($username === $static_username && $password === $static_password) {
+    // Autentikasi berhasil, mengarah ke dashboard
+    header("Location: ../pages/dashboard.php");
+    exit();
+} else {
+    // Autentikasi gagal, kembali ke halaman login
+    header("Location: login.php?error=1");
+    exit();;
 }
 ?>

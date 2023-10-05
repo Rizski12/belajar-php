@@ -1,12 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -365,6 +356,6 @@ if (!isset($_SESSION['username'])) {
     </div>
     <!--Akhir footer-->
 
-    <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="dist/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

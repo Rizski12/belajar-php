@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="dist/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="dist/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="assets/js/script.js"></script>
 </head>
 <body class="login">
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
@@ -18,14 +19,15 @@
            <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Sign In Your Acount</p>
            <small class="text-white text-wrap text-center" style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join experienced Designers on this platform.</small>
        </div> 
-        
+
+
        <div class="col-md-6 right-box">
           <div class="row align-items-center">
                 <div class="header-text mb-4">
                      <h2>Hello,Again</h2>
                      <p>We are happy to have you back.</p>
                 </div>
-                <form action="proses_login.php" method="post">
+                <form action="proses_login.php" method="post" onsubmit="return validateForm()">
                 <div class="input-group mb-3">
                     <input type="text" id="username" name="username" class="form-control form-control-lg bg-light fs-6" placeholder="Username">
                 </div>
@@ -51,10 +53,18 @@
                 <div class="row">
                     <small>Don't have account? <a href="#">Sign Up</a></small>
                 </div>
+                <div id="error-message" class="alert alert-danger" style="display: none;"></div>
+                <?php
+                // Periksa apakah ada parameter error di URL 
+                if (isset($_GET['error']) && $_GET['error'] === '1') {
+                    echo "<script>showErrorMessage('Username atau password salah!');</script>";
+                }
+                ?>
           </div>
        </div> 
       </div>
     </div>
     <!-- /.login-card-body -->
+    <script src="dist/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -206,7 +206,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="../index.php" class="nav-link">
+            <a href="../login.php" class="nav-link">
               <i class="nav-icon far fa-user"></i>
               <p>
                 Login
@@ -217,8 +217,7 @@
             <a href="listing-produk.php" class="nav-link">
               <i class="nav-icon fas fa-box"></i>
               <p>
-                Product
-                <i class="fas fa-angle-right right"></i>
+                List-Products
               </p>
             </a>
           </li>

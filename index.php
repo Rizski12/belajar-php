@@ -12,5 +12,7 @@
     <?php 
     include ('login.php')
     ?>
+    <script src="assets/js/script.js"></script>
+    <script src="dist/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
