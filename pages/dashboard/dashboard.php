@@ -7,6 +7,21 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// Ambil nama pengguna dari database berdasarkan ID yang disimpan dalam sesi
+$user_id = $_SESSION['user_id'];
+require('../../config/koneksi.php');
+$query = "SELECT name FROM users WHERE id = $user_id";
+$result = mysqli_query($conn, $query);
+
+if (mysqli_num_rows($result) === 1) {
+    $row = mysqli_fetch_assoc($result);
+    $user_name = $row['name'];
+} else {
+    // Handle error jika data pengguna tidak ditemukan
+    echo "User data not found.";
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -185,7 +200,7 @@ if (!isset($_SESSION['user_id'])) {
           <img src="../../assets/Images/rizki.jpg" class="img-circle elevation-3" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Rizki Dian Pratama</a>
+          <a href="#" class="d-block"><?php echo $user_name; ?></a>
         </div>
       </div>
 
@@ -356,7 +371,7 @@ if (!isset($_SESSION['user_id'])) {
   </section>
   <!--Akhir card-->
 
-  <footer class="user-footer">
+  <footer class="user-footer position-absolute bottom-0">
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.2.0
     </div>

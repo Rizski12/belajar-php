@@ -5,6 +5,7 @@ require('../../config/koneksi.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $email = $_POST['email'];
+    $phone_number = $_POST['phone_number'];
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -16,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $query = "INSERT INTO users (name, email, username, password, group_id) VALUES ('$name', '$email', '$username', MD5('$password'), 1)";
+    $query = "INSERT INTO users (name, email, phone_number, username, password, group_id) VALUES ('$name', '$email', '$phone_number', '$username', MD5('$password'), 1)";
     $result = mysqli_query($conn, $query);
 
     if ($result) {

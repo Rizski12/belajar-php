@@ -1,14 +1,4 @@
 <?php
-session_start();
-
-// Periksa apakah pengguna sudah masuk. Jika tidak, arahkan ke halaman login.
-if (!isset($_SESSION['user_id'])) {
-    header('Location: ../../index.php');
-    exit;
-}
-
-?>
-<?php
 include '../../config/koneksi.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

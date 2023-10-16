@@ -36,6 +36,9 @@
                         <input type="email" id="email" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="Email" required>
                     </div>
                     <div class="input-group mb-3">
+                        <input type="tel" id="phone_number" name="phone_number" class="form-control form-control-lg bg-light fs-6" placeholder="Nomor Handphone" required>
+                    </div>
+                    <div class="input-group mb-3">
                         <input type="text" id="username" name="username" class="form-control form-control-lg bg-light fs-6" placeholder="Username" required>
                     </div>
                     <div class="input-group mb-1">

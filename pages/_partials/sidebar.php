@@ -14,7 +14,7 @@
           <img src="../../assets/Images/rizki.jpg" class="img-circle elevation-3" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Rizki Dian Pratama</a>
+          <a href="#" class="d-block"><?php echo $user_name; ?></a>
         </div>
       </div>
 

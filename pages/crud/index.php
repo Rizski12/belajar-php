@@ -6,7 +6,20 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: ../../index.php');
     exit;
 }
+// Ambil nama pengguna dari database berdasarkan ID yang disimpan dalam sesi
+$user_id = $_SESSION['user_id'];
+require('../../config/koneksi.php');
+$query = "SELECT name FROM users WHERE id = $user_id";
+$result = mysqli_query($conn, $query);
 
+if (mysqli_num_rows($result) === 1) {
+    $row = mysqli_fetch_assoc($result);
+    $user_name = $row['name'];
+} else {
+    // Handle error jika data pengguna tidak ditemukan
+    echo "User data not found.";
+    exit;
+}
 ?>
 <?php
 include '../../config/koneksi.php';
@@ -204,7 +217,7 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
           <img src="../../assets/Images/rizki.jpg" class="img-circle elevation-3" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Rizki Dian Pratama</a>
+          <a href="#" class="d-block"><?php echo $user_name; ?></a>
         </div>
       </div>
 
@@ -301,7 +314,6 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
   
     <!-- Awal tabel produk -->
   <section class="container mt-1">
-  <div class="container">
   <div class="card">
     <div class="card-header row">
         <div class="col-sm-6">
@@ -312,7 +324,7 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
         </div>
     </div>
     <div class="card-body">
-    <table id="example1" class="table table-bordered border-dark border-1">
+    <table id="example1" class="table table-bordered border-3 table-hover">
       <thead class="table-primary text-dark">
         <tr class="text-center">
             <th>No</th>
@@ -353,19 +365,16 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
         ?>
        </tbody>
     </table>
-    </div>
   </div>
 </div>
 
 <br>
 
-<div class="container">
     <div class="card bg-light mb-2">
         <div class="card-body">
             <h5 class="card-title">Total Produk</h5>
              <p class="card-text">Jumlah total produk: <span id="total-products"><?php echo $jumlah_products['total'] ?></span></p>
          </div>
-    </div>
     </div>
     <br>
 </section>
