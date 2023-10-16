@@ -27,7 +27,7 @@
              <a class="nav-link active" aria-current="page" href="#">Beranda</a>
             </li>
             <li class="nav-item">
-             <a class="nav-link" href="dashboard.php">Dashboard</a>
+             <a class="nav-link" href="dashboard/dashboard.php">Dashboard</a>
             </li>
             <li class="nav-item">
              <a class="nav-link" href="#">Keranjang</a>
