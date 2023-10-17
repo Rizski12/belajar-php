@@ -24,14 +24,6 @@ if (mysqli_num_rows($result) === 1) {
 <?php
 include '../../config/koneksi.php';
 
-// Query untuk mengambil data produk
-$sql = "SELECT * FROM products";
-$result = $conn->query($sql);
-
-$sql = "SELECT products.*, category_name FROM products
-    JOIN product_categories ON products.category_id = product_categories.id";
-$result = mysqli_query($conn, $sql);
-
 // hitung data produk
 $query_jumlah_products = "SELECT COUNT(*) AS total FROM products";
 $hasil_jumlah_products = mysqli_query($conn, $query_jumlah_products);
@@ -59,6 +51,7 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
  <!-- Style css-->
  <link rel="stylesheet" href="../../assets/css/admin.css">
+<link rel="stylesheet" href="../../assets/css/admin.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -311,76 +304,236 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
         </div>
       </div>
     </section>
+
   
     <!-- Awal tabel produk -->
-  <section class="container mt-1">
-  <div class="card">
-    <div class="card-header row">
-        <div class="col-sm-6">
-          <h1 class="card-title">DataTable Products</h1>
-        </div>
-        <div class="col-sm-6 text-right">
-          <a href="tambah_produk.php" class="btn btn-success"><i class="fas fa-plus"></i><strong> Add Produk</strong></a>
-        </div>
+    <section class="container-fluid mt-1">
+    <div class="card">
+      <div class="card-header row">
+          <div class="col-md-6">
+            <h4 class="title">DataTable Products</h4>
+          </div>
+          <div class="col-md-6 text-right">
+            <a href="tambah_produk.php" class="btn btn-primary"><i class="fas fa-plus"></i><strong> Add Produk</strong></a>
+          </div>
+      </div>
+      <div class="card-body">
+      <table class="table table-bordered border-3">
+        <thead class="table-primary text-dark">
+          <tr class="text-center">
+              <th>No</th>
+              <th>Produk</th>
+              <th>Gambar Produk</th>
+              <th>Kategori</th>
+              <th>Deskripsi</th>
+              <th>Unit</th>
+              <th>Discount</th>
+              <th>Stock</th>
+              <th>Harga</th>
+              <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          $results_per_page = 5;
+          $query = "SELECT * FROM products";
+          $result = mysqli_query($conn, $query);
+          $total_products = mysqli_num_rows($result);
+          $total_pages = ceil($total_products / $results_per_page);
+
+          if (!isset($_GET['page'])) {
+              $page = 1;
+          } else {
+              $page = $_GET['page'];
+          }
+
+          $start_index = ($page - 1) * $results_per_page;
+          $query = "SELECT products.*, product_categories.category_name
+                    FROM products
+                    LEFT JOIN product_categories ON products.category_id = product_categories.id
+                    LIMIT $start_index, $results_per_page";
+          $result = mysqli_query($conn, $query);
+
+          $count = 1;
+          if ($result->num_rows > 0) {
+              while($row = $result->fetch_assoc()) {
+                  echo "<tr class='text-center'>";
+                  echo "<td>" . $count . "</td>"; 
+                  echo "<td>" . $row["product_name"] . "</td>";
+                  echo "<td><img src='" . $row["images"] . "' alt='gambar produk' width='100' height='100'></td>";
+                  echo "<td>" . $row["category_name"] . "</td>";
+                  echo "<td>" . $row["description"] . "</td>";
+                  echo "<td>" . $row["unit"] . "</td>";
+                  $discount_percent = $row['discount_amount'] . "%";
+                  echo "<td>" . $discount_percent . "</td>";
+                  echo "<td>" . $row["stock"] . "</td>";
+                  $formatted_price = "Rp. " . number_format($row["price"], 0, ',', '.');
+                  echo "<td>" . $formatted_price . "</td>";
+                  echo "<td> <a class='btn btn-sm btn-warning' href='edit_produk.php?id=" . $row["id"] ."'><i class='fas fa-edit'></i> Edit</a>
+                  | <a href='hapus_produk.php?id=" . $row["id"] . "' class='btn btn-sm btn-danger'><i class='fas fa-trash-alt'></i> Hapus</a></td>";
+                  echo "</tr>"; 
+                  $count++; 
+              }
+          } else {
+              echo "Tidak ada data produk.";
+          }
+          ?>
+        </tbody>
+      </table>
+      <!-- menampilkan produk -->
+      <div class="row mt-2">
+                  <div class="col-md-6">
+                      <h5>Menampilkan produk <?php echo $start_index + 1; ?> - <?php echo min($start_index + $results_per_page, $total_products); ?> dari <?php echo $total_products; ?> produk.</h5>
+                  </div>
+                  <div class="col-md-6">
+                      <!-- Pagination -->
+                      <nav aria-label="Page navigation">
+                          <ul class="pagination justify-content-end">
+                              <?php
+                              $prev_page = $page - 1;
+                              $next_page = $page + 1;
+
+                              if ($page > 1) {
+                                  echo "<li class='page-item'><a class='page-link' href='index.php?page=$prev_page'>&laquo; Previous</a></li>";
+                              }
+
+                              for ($i = 1; $i <= $total_pages; $i++) {
+                                  $active = ($i == $page) ? 'active' : '';
+                                  echo "<li class='page-item $active'><a class='page-link' href='index.php?page=$i'>$i</a></li>";
+                              }
+
+                              if ($page < $total_pages) {
+                                  echo "<li class='page-item'><a class='page-link' href='index.php?page=$next_page'>Next &raquo;</a></li>";
+                              }
+                              ?>
+                          </ul>
+                      </nav>
+                      <!-- Pagination -->
+                  </div>
+              </div>
+            <!-- menampilkan produk -->
     </div>
-    <div class="card-body">
-    <table id="example1" class="table table-bordered border-3 table-hover">
-      <thead class="table-primary text-dark">
-        <tr class="text-center">
-            <th>No</th>
-            <th>Nama Produk</th>
-            <th>Kategori</th>
-            <th>Deskripsi</th>
-            <th>Unit</th>
-            <th>Discount</th>
-            <th>Stock</th>
-            <th>Harga</th>
-            <th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        $count = 1;
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                echo "<tr class='text-center'>";
-                echo "<td>" . $count . "</td>"; 
-                echo "<td>" . $row["product_name"] . "</td>";
-                echo "<td>" . $row["category_name"] . "</td>";
-                echo "<td>" . $row["description"] . "</td>";
-                echo "<td>" . $row["unit"] . "</td>";
-                $discount_percent = $row['discount_amount'] . "%";
-                echo "<td>" . $discount_percent . "</td>";
-                echo "<td>" . $row["stock"] . "</td>";
-                $formatted_price = "Rp. " . number_format($row["price"], 0, ',', '.');
-                echo "<td>" . $formatted_price . "</td>";
-                echo "<td> <a class='btn btn-sm btn-warning' href='edit_produk.php?id=" . $row["id"] ."'><i class='fas fa-edit'></i> Edit</a>
-                | <a href='hapus_produk.php?id=" . $row["id"] . "' class='btn btn-sm btn-danger'><i class='fas fa-trash-alt'></i> Hapus</a></td>";
-                echo "</tr>"; 
-                $count++; 
-            }
-        } else {
-            echo "Tidak ada data produk.";
-        }
-        ?>
-       </tbody>
-    </table>
   </div>
-</div>
 
-<br>
-
-    <div class="card bg-light mb-2">
-        <div class="card-body">
-            <h5 class="card-title">Total Produk</h5>
-             <p class="card-text">Jumlah total produk: <span id="total-products"><?php echo $jumlah_products['total'] ?></span></p>
-         </div>
-    </div>
-    <br>
-</section>
+      <div class="card bg-light mb-2 mt-3">
+          <div class="card-body">
+              <h5 class="card-title">Total Produk</h5>
+              <p class="card-text">Jumlah total produk: <span id="total-products"><?php echo $jumlah_products['total'] ?></span></p>
+          </div>
+      </div>
+      <br>
+  </section>
   <!--Akhir tabel produk-->
 
-    <footer class="user-footer position-absolute bottom-0">
+  <!--Awal Body Card produk-->
+  <section class="container-fluid mt-1">
+    <div class="card">
+        <div class="card-header row">
+            <div class="col-md-6">
+                <h4 class="title">Data Produk</h4>
+            </div>
+            <div class="col-md-6 text-right">
+                <h4>Card Produk</h4>
+            </div>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="search_produk.php" class="mt-1">
+                <div class="input-group mb-3">
+                    <input type="text" name="search_query" class="form-control" placeholder="Cari produk berdasarkan nama, kategori, atau deskripsi" value="<?php echo isset($_POST['search_query']) ? $_POST['search_query'] : ''; ?>">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Cari</button>
+                </div>
+            </form>
+            <!-- Awal card produk -->
+            <div class="produk-container mt-2">
+                <?php
+                $results_per_page_card = 8;
+                $query = "SELECT * FROM products";
+                $result = mysqli_query($conn, $query);
+                $total_products = mysqli_num_rows($result);
+                $total_pages = ceil($total_products / $results_per_page_card);
+      
+                if (!isset($_GET['page'])) {
+                    $page = 1;
+                } else {
+                    $page = $_GET['page'];
+                }
+      
+                $start_index = ($page - 1) * $results_per_page_card;
+                $query = "SELECT products.*, product_categories.category_name
+                          FROM products
+                          LEFT JOIN product_categories ON products.category_id = product_categories.id
+                          LIMIT $start_index, $results_per_page_card";
+                $result = mysqli_query($conn, $query);
+                if (!$result) {
+                    echo "Error: " . mysqli_error($conn);
+                }
+                if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                ?>
+                    <div class="card-produk mb-3 ml-4"  style="width: 17rem;">
+                    <span class="badge-produk"><?php echo $row['discount_amount']; ?> %</span>
+                    <img src="<?php echo $row['images']; ?>" class="card-img-top" alt="Gambar Produk">
+                        <div class="card-body p-2">
+                            <h4 class="card-title"><?php echo $row['product_name']; ?></h4>
+                            <br>
+                            <p class="deskripsi"><?php echo $row['description']; ?></p>
+                            <p class="kategori">Kategori: <?php echo $row['category_name']; ?></p>
+                            <p class="harga">Harga: Rp. <?php echo number_format($row['price'], 0, ',', '.'); ?></p>
+                            <p class="stok">Stok: <?php echo $row['stock']; ?></p>
+                            <button class="order-button me-md-2">Order</button>
+                            <button class="cart-button"><i class="fas fa-shopping-cart"></i></button>
+                          </div>
+                    </div>
+                <?php
+                    }
+                } else {
+                    echo "Tidak ada data produk.";
+                }
+                ?>
+          </div>
+        <!-- Akhir  card produk -->
+
+          <!-- menampilkan produk -->
+          <div class="row mt-2">
+                  <div class="col-md-6">
+                      <h5>Menampilkan produk <?php echo $start_index + 1; ?> - <?php echo min($start_index + $results_per_page_card, $total_products); ?> dari <?php echo $total_products; ?> produk.</h5>
+                  </div>
+                  <div class="col-md-6">
+                      <!-- Pagination -->
+                      <nav aria-label="Page navigation">
+                          <ul class="pagination justify-content-end">
+                              <?php
+                              $prev_page = $page - 1;
+                              $next_page = $page + 1;
+
+                              if ($page > 1) {
+                                  echo "<li class='page-item'><a class='page-link' href='index.php?page=$prev_page'>&laquo; Previous</a></li>";
+                              }
+
+                              for ($i = 1; $i <= $total_pages; $i++) {
+                                  $active = ($i == $page) ? 'active' : '';
+                                  echo "<li class='page-item $active'><a class='page-link' href='index.php?page=$i'>$i</a></li>";
+                              }
+
+                              if ($page < $total_pages) {
+                                  echo "<li class='page-item'><a class='page-link' href='index.php?page=$next_page'>Next &raquo;</a></li>";
+                              }
+                              ?>
+                          </ul>
+                      </nav>
+                      <!-- Pagination -->
+                  </div>
+              </div>
+            <!-- menampilkan produk -->
+        </div>
+    </div>
+</section>
+  <!--Akhir Body Card produk-->
+
+
+<br>
+<br>
+  <footer class="user-footer position-absolute mt-3 bottom-0">
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.2.0
     </div>
@@ -401,27 +554,6 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
 <script src="../../dist/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
-<!-- DataTables  & ../dist -->
-<script src="../../../dist/datatables/jquery.dataTables.min.js"></script>
-<script src="../../../dist/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="../../../dist/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="../../../dist/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="../../../dist/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="../../../dist/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="../../../dist/jszip/jszip.min.js"></script>
-<script src="../../../dist/pdfmake/pdfmake.min.js"></script>
-<script src="../../../dist/pdfmake/vfs_fonts.js"></script>
-<script src="../../../dist/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="../../../dist/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="../../../dist/datatables-buttons/js/buttons.colVis.min.js"></script>
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-  });
-</script>
 </body>
 </html>
 

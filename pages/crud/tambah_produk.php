@@ -9,22 +9,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $unit = $_POST["unit"];
     $discount = $_POST["discount_amount"];
     $stock = $_POST["stock"];
-    $image = $_POST["image"];
 
-    // Mengelola unggahan gambar
-    if ($_FILES["image"]["error"] == UPLOAD_ERR_OK) {
-        $target_dir = "uploads/"; // Direktori penyimpanan gambar
-        $target_file = $target_dir . basename($_FILES["image"]["name"]);
-        
-        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            $image_path = $target_file; // Path gambar
-        } else {
-            echo "Gagal mengunggah gambar.";
-        }
-    }
+     // Mengelola unggahan gambar
+     $target_dir = "uploads/";  // Direktori penyimpanan gambar
+     $target_file = $target_dir . basename($_FILES["images"]["name"]);
+     $uploadOk = 1;
+     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+ 
+     // Memeriksa apakah file gambar yang diunggah adalah gambar yang valid
+     if (isset($_POST["submit"])) {
+         $check = getimagesize($_FILES["images"]["tmp_name"]);
+         if ($check !== false) {
+             echo "File adalah gambar - " . $check["mime"] . ".";
+             $uploadOk = 1;
+         } else {
+             echo "File bukan gambar.";
+             $uploadOk = 0;
+         }
+     }
+ 
+     // Memeriksa apakah file sudah ada
+     if (file_exists($target_file)) {
+         echo "Maaf, file tersebut sudah ada.";
+         $uploadOk = 0;
+     }
+ 
+     // Mengatur batasan ukuran file
+     if ($_FILES["image"]["size"] > 500000) {
+         echo "Maaf, ukuran file terlalu besar.";
+         $uploadOk = 0;
+     }
+ 
+     // Memeriksa jenis file
+     if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+         echo "Maaf, hanya file JPG, JPEG, PNG, dan GIF yang diperbolehkan.";
+         $uploadOk = 0;
+     }
+ 
+     // Jika tidak ada masalah, unggah file
+     if ($uploadOk == 1) {
+         if (move_uploaded_file($_FILES["images"]["tmp_name"], $target_file)) {
+             echo "File " . basename($_FILES["images"]["name"]) . " telah berhasil diunggah.";
+         } else {
+             echo "Maaf, terjadi kesalahan saat mengunggah file.";
+         }
+     }
+ 
+     // Simpan path gambar ke database
+     $image_path = $target_file;
+    
 
 
-    $sql = "INSERT INTO products (product_name, price, category_id, description, unit, discount_amount, stock, image) VALUES ('$product_name', '$price', '$category_id', '$desc', '$unit', '$discount', '$stock', '$image')";
+    $sql = "INSERT INTO products (product_name, price, category_id, description, unit, discount_amount, stock, images) VALUES ('$product_name', '$price', '$category_id', '$desc', '$unit', '$discount', '$stock', '$image_path')";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: index.php");
@@ -63,7 +99,7 @@ $categories_result = $conn->query($sql_categories);
     <div class="container">
     <div class="card">
         <div class="card-body">
-            <form action="tambah_produk.php" method="post">
+            <form action="tambah_produk.php" method="post" enctype="multipart/form-data">
                 <h3>Data produk</h3>
                 <table class="table table-striped table-middle">
                 <tr>
@@ -107,6 +143,11 @@ $categories_result = $conn->query($sql_categories);
                     <td>:</td>
                     <td><input type="text" class="form-control" id="stock" name="stock" required></td>
                 </tr>
+                <tr>
+                    <th>Gambar</th>
+                    <td>:</td>
+                    <td><input type="file" class="form-control" id="images" name="images" accept="images/*" required></td>
+                </tr>
 
                 
                 </table>
@@ -122,4 +163,5 @@ $categories_result = $conn->query($sql_categories);
       </div>
     </div>
 
+    <br>
 <?php include('../_partials/bottom.php') ?>

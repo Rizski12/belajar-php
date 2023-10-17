@@ -7,6 +7,20 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// Ambil nama pengguna dari database berdasarkan ID yang disimpan dalam sesi
+$user_id = $_SESSION['user_id'];
+require('../../config/koneksi.php');
+$query = "SELECT name FROM users WHERE id = $user_id";
+$result = mysqli_query($conn, $query);
+
+if (mysqli_num_rows($result) === 1) {
+    $row = mysqli_fetch_assoc($result);
+    $user_name = $row['name'];
+} else {
+    // Handle error jika data pengguna tidak ditemukan
+    echo "User data not found.";
+    exit;
+}
 ?>
 <?php
 include '../../config/koneksi.php';
@@ -15,13 +29,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $product_name = $_POST["product_name"];
     $price = $_POST["price"];
     $category_id = $_POST["category_id"];
-    $id = $_POST["id"];
+    $product_id = $_POST["id"];
     $desc = $_POST["description"];
     $unit = $_POST["unit"];
     $discount = $_POST["discount_amount"];
     $stock = $_POST["stock"];
 
-    $sql = "UPDATE products SET product_name='$product_name', price='$price', category_id='$category_id', description='$desc', unit='$unit', discount_amount='$discount', stock='$stock'  WHERE id=$id";
+    // Mengelola unggahan gambar
+    if (!empty($_FILES["images"]["name"])) {
+      $target_dir = "uploads/";
+      $target_file = $target_dir . basename($_FILES["images"]["name"]);
+
+      if (move_uploaded_file($_FILES["images"]["tmp_name"], $target_file)) {
+          $image_path = $target_file;
+      } else {
+          echo "Maaf, terjadi kesalahan saat mengunggah gambar.";
+          exit;
+      }
+    } else {
+        // Jika tidak ada gambar baru diunggah, gunakan gambar yang ada dalam database
+        $product_id = $_POST["id"];
+        $query = "SELECT image FROM products WHERE id = $product_id";
+        $result = $koneksi->query($query);
+        $row = $result->fetch_assoc();
+        $image_path = $row["images"];
+    }
+
+    $sql = "UPDATE products SET product_name='$product_name', price=$price, images='$image_path' WHERE id=$product_id";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: index.php");
@@ -30,11 +64,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$id = $_GET["id"];
+$product_id = $_GET["id"];
 $sql = "SELECT products.*, product_categories.category_name
         FROM products
         JOIN product_categories ON products.category_id = product_categories.id
-        WHERE products.id=$id";
+        WHERE products.id=$product_id";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
@@ -227,9 +261,9 @@ $categories_result = $conn->query($sql_categories);
     <div class="container">
       <div class="card">
         <div class="card-body">
-          <form action="edit_produk.php" method="post">
+          <form action="edit_produk.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $row["id"]; ?>">
-                  <h3>A. Data Produk</h3>
+                  <h3>Data Produk</h3>
                   <table class="table table-striped table-middle">
                   <tr>
                       <th width="20%">product_name</th>
@@ -274,9 +308,14 @@ $categories_result = $conn->query($sql_categories);
                       <td>:</td>
                       <td><input type="text" class="form-control" id="stock" name="stock" value="<?php echo $row["stock"]; ?>" required></td>
                   </tr>
+                  <tr>
+                      <th>Gambar</th>
+                      <td>:</td>
+                      <td><input type="file" class="form-control" id="images" name="images"  accept="images/*" value="<?php echo $row["images"]; ?>" required></td>
+                  </tr>
                   </table>
-
-
+                  <img src="<?php echo $row["images"]; ?>" width="100", height="100" alt="Gambar Produk">
+                  <br>
 
                   <button type="submit" class="btn btn-success">
                   <i class="fa fa-save"></i> Simpan
@@ -289,4 +328,5 @@ $categories_result = $conn->query($sql_categories);
       </div>
    </div>
 
+   <br>
     <?php include('../_partials/bottom.php') ?>

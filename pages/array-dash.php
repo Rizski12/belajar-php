@@ -262,7 +262,7 @@ if (mysqli_num_rows($result) === 1) {
             </a>
           </li>
           <li class="nav-item">
-            <a href="../login/logout.php" class="nav-link">
+            <a href="login/logout.php" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
                 LogOut

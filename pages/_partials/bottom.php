@@ -1,4 +1,4 @@
-<footer class="user-footer">
+<footer class="user-footer position-absolute bottom-0">
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.2.0
     </div>
