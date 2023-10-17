@@ -1,0 +1,113 @@
+
+
+@keyframes animasi2{
+    form {background: red;}
+    to {background: #007bff;}
+}
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.produk-container {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card-produk {
+    width: 270px;
+    padding: 2px;
+    margin: 2vh;
+    position: relative;
+    box-shadow: 1px 1px 5px rgb(106, 107, 107);
+    border-radius: 5px;
+}
+
+.card-produk:hover {
+    box-shadow: 3px 3px 10px rgb(35, 35, 36);
+    transition: 0.3s;
+}
+
+.badge-produk{
+    position: absolute;
+    left: 2px;
+    top: 5px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    background: red;
+    color: #fff;
+    padding: 3px 20px;
+    border-radius: 0 8px 0 8px;
+    animation-name: animasi2;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+ }
+
+.card-produk img {
+    max-width: 100%;
+    padding: 2px 2px 0 2px;
+    height: 40vh;
+    border-bottom: #cbc9c9 solid;
+}
+
+.card-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 0;
+    color: black;
+ }
+
+.deskripsi {
+    font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+.kategori {
+    font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 0;
+}
+
+.harga {
+    font-family: 'Times New Roman', Times, serif;
+    text-align: end;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.stok {
+    font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+.order-button {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 8px 75px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 3px;
+    cursor: pointer;
+}
+
+.cart-button {
+    background-color: rgb(115, 142, 186);
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 8px 15px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
