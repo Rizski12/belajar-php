@@ -43,10 +43,6 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
  <link rel="stylesheet" href="../../dist/fontawesome-free/css/all.min.css">
  <!-- Bootstrap-->
  <link rel="stylesheet" href="../../../dist/bootstrap/css/bootstrap.min.css">
- <!-- DataTables -->
- <link rel="stylesheet" href="../../../dist/datatables-bs4/css/dataTables.bootstrap4.min.css">
- <link rel="stylesheet" href="../../../dist/datatables-responsive/css/responsive.bootstrap4.min.css">
- <link rel="stylesheet" href="../../../dist/datatables-buttons/css/buttons.bootstrap4.min.css">
  <!-- Theme style -->
  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
  <!-- Style css-->
