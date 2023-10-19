@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 // Periksa apakah pengguna sudah masuk. Jika tidak, arahkan ke halaman login.
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../../index.php');
@@ -194,8 +195,8 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="dashboard.html" class="brand-link">
-      <img src="../../assets/Images/arkatama.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <img src="../../assets/Images/download.jpeg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">Rizski Shop</span>
     </a>
 
     <!-- Sidebar -->
@@ -245,14 +246,6 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
             </a>
           </li>
           <li class="nav-item">
-            <a href="../../index.php" class="nav-link">
-              <i class="nav-icon far fa-user"></i>
-              <p>
-                Login
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a href="../listing-produk.php" class="nav-link">
               <i class="nav-icon fas fa-th-list"></i>
               <p>
@@ -265,6 +258,14 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
               <i class="nav-icon fas fa-cube"></i>
               <p>
                 CRUD-Products
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../../index.php" class="nav-link">
+              <i class="nav-icon far fa-user"></i>
+              <p>
+                Login
               </p>
             </a>
           </li>
@@ -301,6 +302,39 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
       </div>
     </section>
 
+    <div class="container-fluid">
+    <?php
+      if (isset($_SESSION['success_message'])) {
+        echo '<div class="alert alert-success m-3">' . $_SESSION['success_message'] . ' </div>';
+        unset($_SESSION['success_message']);
+      }
+    
+      if (isset($_SESSION['success_message1'])) {
+        echo '<div class="alert alert-success">' . $_SESSION['success_message1'] . '</div>';
+        // Hapus pesan sukses setelah 3 detik
+        echo '<script>setTimeout(function() { $(".alert").remove(); }, 3000);</script>';
+        // Hapus pesan sukses dari sesi
+        unset($_SESSION['success_message1']);
+      }
+    
+     if (isset($_SESSION['success_message2'])) {
+      echo '<div class="alert alert-success">' . $_SESSION['success_message2'] . '</div>';
+      // Hapus pesan sukses setelah 3 detik
+      echo '<script>setTimeout(function() { $(".alert").remove(); }, 3000);</script>';
+      // Hapus pesan sukses dari sesi
+      unset($_SESSION['success_message2']);
+    }
+    ?>
+    <script>
+      // Menghilangkan pesan alert setelah 3 detik
+      setTimeout(function() {
+        var alert = document.querySelector(".alert");
+        if (alert) {
+          alert.style.display = "none";
+        }
+      }, 3000);
+    </script>
+    </div>
   
     <!-- Awal tabel produk -->
     <section class="container-fluid mt-1">
@@ -318,13 +352,14 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
         <thead class="table-primary text-dark">
           <tr class="text-center">
               <th>No</th>
+              <th>Gambar</th>
               <th>Produk</th>
-              <th>Gambar Produk</th>
               <th>Kategori</th>
+              <th>kode</th>
               <th>Deskripsi</th>
               <th>Unit</th>
               <th>Discount</th>
-              <th>Stock</th>
+              <th>Stok</th>
               <th>Harga</th>
               <th>Aksi</th>
           </tr>
@@ -355,9 +390,10 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
               while($row = $result->fetch_assoc()) {
                   echo "<tr class='text-center'>";
                   echo "<td>" . $count . "</td>"; 
+                  echo "<td><img src='" . $row["images"] . "' alt='gambar produk' width='80' height='80'></td>";
                   echo "<td>" . $row["product_name"] . "</td>";
-                  echo "<td><img src='" . $row["images"] . "' alt='gambar produk' width='100' height='100'></td>";
                   echo "<td>" . $row["category_name"] . "</td>";
+                  echo "<td>" . $row["product_code"] . "</td>";
                   echo "<td>" . $row["description"] . "</td>";
                   echo "<td>" . $row["unit"] . "</td>";
                   $discount_percent = $row['discount_amount'] . "%";
@@ -442,7 +478,7 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
             <!-- Awal card produk -->
             <div class="produk-container mt-2">
                 <?php
-                $results_per_page_card = 8;
+                $results_per_page_card = 6;
                 $query = "SELECT * FROM products";
                 $result = mysqli_query($conn, $query);
                 $total_products = mysqli_num_rows($result);
@@ -543,6 +579,7 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
 
 <!-- jQuery -->
 <script src="../../dist/jquery/jquery.min.js"></script>

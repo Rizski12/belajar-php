@@ -6,6 +6,7 @@ if (isset($_GET["id"])) {
     $sql = "DELETE FROM products WHERE id=$id";
 
     if ($conn->query($sql) === TRUE) {
+        $_SESSION['success_message2'] = "Data produk berhasil dihapus.";
         header("Location: index.php");
     } else {
         echo "<script>alert('Data produk gagal dihapus!'); window.location.href='crud_produk.php'</script>";

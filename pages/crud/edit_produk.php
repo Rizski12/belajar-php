@@ -30,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $price = $_POST["price"];
     $category_id = $_POST["category_id"];
     $product_id = $_POST["id"];
+    $product_code = $_POST["product_code"];
     $desc = $_POST["description"];
     $unit = $_POST["unit"];
     $discount = $_POST["discount_amount"];
@@ -49,15 +50,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // Jika tidak ada gambar baru diunggah, gunakan gambar yang ada dalam database
         $product_id = $_POST["id"];
-        $query = "SELECT image FROM products WHERE id = $product_id";
+        $query = "SELECT images FROM products WHERE id = $product_id";
         $result = $koneksi->query($query);
         $row = $result->fetch_assoc();
         $image_path = $row["images"];
     }
 
-    $sql = "UPDATE products SET product_name='$product_name', price=$price, images='$image_path' WHERE id=$product_id";
+   
+    // Periksa apakah product_code sudah ada dalam database
+    $query_check = "SELECT product_code FROM products WHERE product_code = '$product_code' AND id != $product_id";
+    $result_check = $conn->query($query_check);
+
+    if ($result_check->num_rows > 0) {
+        // Jika product_code sudah ada, tampilkan pesan kesalahan dan kembali ke halaman indeks
+        echo "<script>alert('Product Code sudah ada. Gunakan Product Code yang berbeda.')</script>";
+        echo "<script>window.location = 'index.php'</script>";
+        exit;
+    }
+
+    $sql = "UPDATE products SET product_name='$product_name',  product_code='$product_code', category_id='$category_id', unit='$unit', description='$desc', discount_amount='$discount', price= '$price', stock= '$stock', images='$image_path' WHERE id=$product_id";
 
     if ($conn->query($sql) === TRUE) {
+        $_SESSION['success_message'] = "Data produk berhasil diubah.";
         header("Location: index.php");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
@@ -148,7 +162,7 @@ $categories_result = $conn->query($sql_categories);
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="../../assets/Images/arkatama.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <img src="../../assets/Images/download.jpeg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Brad Diesel
@@ -164,7 +178,7 @@ $categories_result = $conn->query($sql_categories);
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="../../assets/Images/arkatama.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="../../assets/Images/rizki.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   John Pierce
@@ -266,7 +280,7 @@ $categories_result = $conn->query($sql_categories);
                   <h3>Data Produk</h3>
                   <table class="table table-striped table-middle">
                   <tr>
-                      <th width="20%">product_name</th>
+                      <th width="20%">Nama Produk</th>
                       <td width="1%">:</td>
                       <td><input type="text" class="form-control" id="product_name" name="product_name" value="<?php echo $row["product_name"]; ?>" required></td>
                   </tr>
@@ -284,37 +298,44 @@ $categories_result = $conn->query($sql_categories);
                       </td>
                   </tr>
                   <tr>
-                      <th>description</th>
+                      <th width="20%">Kode</th>
+                      <td width="1%">:</td>
+                      <td><input type="text" class="form-control" id="product_code" name="product_code" value="<?php echo $row["product_code"]; ?>" required></td>
+                  </tr>
+                  <tr>
+                      <th>Description</th>
                       <td>:</td>
                       <td><textarea class="form-control" id="description" name="description"><?php echo $row["description"]; ?></textarea></td>
                   </tr>
                   <tr>
-                      <th>harga</th>
+                      <th>Harga</th>
                       <td>:</td>
                       <td><input type="text" class="form-control" id="price" name="price" value="<?php echo $row["price"]; ?>" required></td>
                   </tr>
                   <tr>
-                      <th>unit</th>
+                      <th>Unit</th>
                       <td>:</td>
                       <td><input type="text" class="form-control" id="unit" name="unit" value="<?php echo $row["unit"]; ?>" required></td>
                   </tr>
                   <tr>
-                      <th>discount_amount</th>
+                      <th>Discount</th>
                       <td>:</td>
                       <td><input type="text" class="form-control" id="discount_amount" name="discount_amount" value="<?php echo $row["discount_amount"]; ?>" required></td>
                   </tr>
                   <tr>
-                      <th>stock</th>
+                      <th>Stok</th>
                       <td>:</td>
                       <td><input type="text" class="form-control" id="stock" name="stock" value="<?php echo $row["stock"]; ?>" required></td>
                   </tr>
                   <tr>
                       <th>Gambar</th>
                       <td>:</td>
-                      <td><input type="file" class="form-control" id="images" name="images"  accept="images/*" value="<?php echo $row["images"]; ?>" required></td>
+                      <td>
+                        <img src="<?php echo $row["images"]; ?>" width="100", height="100" alt="Gambar Produk">
+                        <input type="file" class="form-control mt-1" id="images" name="images" accept="images/*" required>
+                      </td>
                   </tr>
                   </table>
-                  <img src="<?php echo $row["images"]; ?>" width="100", height="100" alt="Gambar Produk">
                   <br>
 
                   <button type="submit" class="btn btn-success">

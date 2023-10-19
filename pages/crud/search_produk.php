@@ -235,8 +235,10 @@
                 <thead class="table-primary text-dark">
                     <tr class="text-center">
                         <th>No</th>
-                        <th>Nama Produk</th>
+                        <th>Gambar</th>
+                        <th>Produk</th>
                         <th>Kategori</th>
+                        <th>kode</th>
                         <th>Deskripsi</th>
                         <th>Unit</th>
                         <th>Discount</th>
@@ -267,8 +269,10 @@
                             while ($row = $result->fetch_assoc()) {
                                 echo "<tr class='text-center'>";
                                 echo "<td>" . $count . "</td>";
+                                echo "<td><img src='" . $row["images"] . "' alt='gambar produk' width='80' height='80'></td>";
                                 echo "<td>" . $row["product_name"] . "</td>";
                                 echo "<td>" . $row["category_name"] . "</td>";
+                                echo "<td>" . $row["product_code"] . "</td>";
                                 echo "<td>" . $row["description"] . "</td>";
                                 echo "<td>" . $row["unit"] . "</td>";
                                 $discount_percent = $row['discount_amount'] . "%";

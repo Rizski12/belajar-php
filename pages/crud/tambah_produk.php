@@ -5,6 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $product_name = $_POST["product_name"];
     $price = $_POST["price"];
     $category_id = $_POST["category_id"];
+    $product_code = $_POST["product_code"];
     $desc = $_POST["description"];
     $unit = $_POST["unit"];
     $discount = $_POST["discount_amount"];
@@ -60,9 +61,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
 
 
-    $sql = "INSERT INTO products (product_name, price, category_id, description, unit, discount_amount, stock, images) VALUES ('$product_name', '$price', '$category_id', '$desc', '$unit', '$discount', '$stock', '$image_path')";
+    $sql = "INSERT INTO products (product_name, price, category_id, product_code, description, unit, discount_amount, stock, images) VALUES ('$product_name', '$price', '$category_id', '$product_code', '$desc', '$unit', '$discount', '$stock', '$image_path')";
 
     if ($conn->query($sql) === TRUE) {
+        $_SESSION['success_message1'] = "Data produk berhasil ditambahkan.";
         header("Location: index.php");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
@@ -122,6 +124,11 @@ $categories_result = $conn->query($sql_categories);
                             }
                         ?>
                     </select></td>
+                </tr>
+                <tr>
+                    <th width="20%">Kode</th>
+                    <td width="1%">:</td>
+                    <td><input type="text" class="form-control" id="product_code" name="product_code" required></td>
                 </tr>
                 <tr>
                     <th>Harga</th>

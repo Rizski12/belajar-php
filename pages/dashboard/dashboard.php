@@ -188,8 +188,8 @@ if (mysqli_num_rows($result) === 1) {
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="dashboard.html" class="brand-link">
-      <img src="../../assets/Images/arkatama.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <img src="../../assets/Images/download.jpeg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">Rizski Shop</span>
     </a>
 
     <!-- Sidebar -->
@@ -239,14 +239,6 @@ if (mysqli_num_rows($result) === 1) {
             </a>
           </li>
           <li class="nav-item">
-            <a href="../../index.php" class="nav-link">
-              <i class="nav-icon far fa-user"></i>
-              <p>
-                Login
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a href="../listing-produk.php" class="nav-link">
               <i class="nav-icon fas fa-th-list"></i>
               <p>
@@ -259,6 +251,14 @@ if (mysqli_num_rows($result) === 1) {
               <i class="nav-icon fas fa-cube"></i>
               <p>
                 CRUD-Products
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../../index.php" class="nav-link">
+              <i class="nav-icon far fa-user"></i>
+              <p>
+                Login
               </p>
             </a>
           </li>
@@ -309,7 +309,7 @@ if (mysqli_num_rows($result) === 1) {
                 <p>Products</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="fas fa-shopping-bag"></i>
               </div>
               <a href="../crud" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -317,14 +317,14 @@ if (mysqli_num_rows($result) === 1) {
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-secondary">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3><?php echo $jumlah_customers['total'] ?></h3>
 
-                <p>Bounce Rate</p>
+                <p>Customers</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="fas fa-users"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -339,7 +339,7 @@ if (mysqli_num_rows($result) === 1) {
                 <p>User Registrations</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="fas fa-user-plus"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -347,14 +347,14 @@ if (mysqli_num_rows($result) === 1) {
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
+            <div class="small-box bg-success">
               <div class="inner">
-                <h3>65</h3>
+                <h3><?php echo $jumlah_vendors['total'] ?></h3>
 
-                <p>Unique Visitors</p>
+                <p>Vendors</p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fas fa-chart-bar"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
