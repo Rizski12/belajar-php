@@ -53,13 +53,10 @@ if (mysqli_num_rows($result) === 1) {
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="../../index.html" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a class="nav-link" id="server-time" href="#" role="button">
+          <i class="far fa-clock"></i>
+          <span id="server-time-text">Loading...</span>
+        </a>
       </li>
     </ul>
 
@@ -185,6 +182,37 @@ if (mysqli_num_rows($result) === 1) {
     </ul>
   </nav>
   <!-- /.navbar -->
+
+  <script>
+    // Fungsi untuk mengambil waktu dari server dan menampilkan dalam format yang diinginkan
+    function updateServerTime() {
+      const serverTimeElement = document.getElementById("server-time-text");
+      const options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      };
+
+      // Mengambil waktu dari server (misalnya melalui AJAX)
+      const serverTime = new Date(); // Anda harus menggantinya dengan cara yang sesuai untuk mengambil waktu dari server
+
+      // Mengonversi waktu ke format yang diinginkan
+      const formattedServerTime = serverTime.toLocaleDateString("id-ID", options);
+
+      // Menampilkan waktu dalam elemen teks
+      serverTimeElement.textContent = formattedServerTime;
+    }
+
+    // Memanggil fungsi updateServerTime setiap detik (1000 ms)
+    setInterval(updateServerTime, 1000);
+
+    // Memanggil fungsi untuk menampilkan waktu server saat halaman dimuat
+    window.addEventListener("load", updateServerTime);
+  </script>
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
