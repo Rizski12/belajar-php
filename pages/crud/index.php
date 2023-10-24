@@ -48,7 +48,8 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
  <!-- Style css-->
  <link rel="stylesheet" href="../../assets/css/admin.css">
-<link rel="stylesheet" href="../../assets/css/admin.css">
+ <!-- icon -->
+ <link rel="icon" type="image/x-icon" href="../../assets/Images/r.png">
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->

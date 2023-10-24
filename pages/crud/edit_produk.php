@@ -109,6 +109,8 @@ $categories_result = $conn->query($sql_categories);
  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
  <!-- Style css-->
  <link rel="stylesheet" href="../../assets/css/admin.css">
+ <!-- icon -->
+ <link rel="icon" type="image/x-icon" href="../../assets/Images/r.png">
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->

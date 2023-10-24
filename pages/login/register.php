@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="../../dist/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../../dist/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
+    <!-- icon -->
+ <link rel="icon" type="image/x-icon" href="../../assets/Images/r.png">
     <script src="../../assets/js/script.js"></script>
 </head>
 <body class="login">

@@ -40,6 +40,8 @@ if (mysqli_num_rows($result) === 1) {
  <!-- Style css-->
  <link rel="stylesheet" href="../assets/css/admin.css">
  <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+ <!-- icon -->
+ <link rel="icon" type="image/x-icon" href="../assets/Images/r.png">
 
 </head>
 <body class="hold-transition sidebar-mini">
