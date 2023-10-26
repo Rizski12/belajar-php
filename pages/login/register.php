@@ -40,9 +40,7 @@
                     <div class="input-group mb-3">
                         <input type="tel" id="phone_number" name="phone_number" class="form-control form-control-lg bg-light fs-6" placeholder="Nomor Handphone" required>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="text" id="username" name="username" class="form-control form-control-lg bg-light fs-6" placeholder="Username" required>
-                    </div>
+                    
                     <div class="input-group mb-1">
                         <input type="password" id="password" name="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password" required>
                     </div>
@@ -66,8 +64,14 @@
                 <?php
                 // Periksa apakah ada parameter error di URL 
                 if (isset($_GET['error']) && $_GET['error'] === '1') {
-                    echo "<script>showErrorMessage('Registration failed. Please try again.');</script>";
-                }
+                    echo "<script>showErrorMessage('Nomor hp sudah digunakan. Silakan gunakan nomor telepon lain atau coba lagi.');</script>";
+                } 
+                ?>
+                <?php
+                // Periksa apakah ada parameter error di URL 
+                if (isset($_GET['error']) && $_GET['error'] === '2') {
+                    echo "<script>showErrorMessage('Registrasi gagal, silahkan coba kembali');</script>";
+                } 
                 ?>
             </div>
         </div>

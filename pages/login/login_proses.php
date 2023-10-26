@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user_id'] = $user['id'];
         header('Location: ../dashboard/dashboard.php');
     } else {
-        echo "Login failed. Please check your credentials.";
+        header('Location: ../../index.php?error=1');
     }
 }
 ?>
