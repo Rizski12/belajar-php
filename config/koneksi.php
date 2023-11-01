@@ -1,10 +1,18 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "pos_shop";
+class Database
+{
+    private $servername = "localhost";
+    private $username = "root";
+    private $password = "";
+    private $dbname = "pos_shop";
+    public $conn;
 
-// Membuat koneksi
-$conn = mysqli_connect($servername, $username, $password, $dbname) or die ("gagal koneksi ke database");
-
+    public function __construct()
+    {
+        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+        if ($this->conn->connect_error) {
+            die("Koneksi gagal: " . $this->conn->connect_error);
+        }
+    }
+}
 ?>

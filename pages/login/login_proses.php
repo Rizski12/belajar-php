@@ -1,19 +1,21 @@
 <?php
 session_start();
 require('../../config/koneksi.php');
+require('class_login.php');
+
+$db = new Database();
+$login = new Login($db);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $query = "SELECT * FROM users WHERE username = '$username' AND password = MD5('$password')";
-    $result = mysqli_query($conn, $query);
-
-    if (mysqli_num_rows($result) === 1) {
-        $user = mysqli_fetch_assoc($result);
-        $_SESSION['user_id'] = $user['id'];
+    // Periksa apakah login berhasil
+    if ($login->loginUser($username, $password)) {
+        // Jika login berhasil, arahkan ke halaman dashboard
         header('Location: ../dashboard/dashboard.php');
     } else {
+        // Jika login tidak valid, arahkan kembali ke halaman login dengan pesan error
         header('Location: ../../index.php?error=1');
     }
 }

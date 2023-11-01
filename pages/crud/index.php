@@ -1,29 +1,38 @@
 <?php
 session_start();
 
+  // Masukkan kode koneksi ke database di sini
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "pos_shop";
 
-// Periksa apakah pengguna sudah masuk. Jika tidak, arahkan ke halaman login.
-if (!isset($_SESSION['user_id'])) {
-    header('Location: ../../index.php');
-    exit;
-}
-// Ambil nama pengguna dari database berdasarkan ID yang disimpan dalam sesi
-$user_id = $_SESSION['user_id'];
-require('../../config/koneksi.php');
-$query = "SELECT name FROM users WHERE id = $user_id";
-$result = mysqli_query($conn, $query);
+  // Membuat objek koneksi
+  $conn = new mysqli($servername, $username, $password, $dbname);
 
-if (mysqli_num_rows($result) === 1) {
-    $row = mysqli_fetch_assoc($result);
-    $user_name = $row['name'];
-} else {
-    // Handle error jika data pengguna tidak ditemukan
-    echo "User data not found.";
-    exit;
-}
-?>
-<?php
-include '../../config/koneksi.php';
+  if ($conn->connect_error) {
+      die("Koneksi gagal: " . $conn->connect_error);
+  }
+
+  // Mengecek apakah pengguna sudah login
+  if (!isset($_SESSION['user_id'])) {
+      header('Location: ../../index.php');
+      exit;
+  }
+
+  // Sekarang Anda dapat menjalankan query atau operasi database di sini
+  // Misalnya:
+  $user_id = $_SESSION['user_id'];
+  $query = "SELECT * FROM users WHERE id = $user_id";
+  $result = $conn->query($query);
+
+  if ($result->num_rows === 1) {
+      $user = $result->fetch_assoc();
+      $user_name = $user['name'];
+  } else {
+      echo "User data not found.";
+      exit;
+  }
 
 // hitung data produk
 $query_jumlah_products = "SELECT COUNT(*) AS total FROM products";
@@ -290,14 +299,6 @@ $jumlah_products = mysqli_fetch_assoc($hasil_jumlah_products);
               <i class="nav-icon fas fa-cube"></i>
               <p>
                 CRUD-Products
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="../../index.php" class="nav-link">
-              <i class="nav-icon far fa-user"></i>
-              <p>
-                Login
               </p>
             </a>
           </li>

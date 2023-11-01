@@ -30,7 +30,7 @@
                     <h2>Hello, New User</h2>
                     <p>We are excited to welcome you.</p>
                 </div>
-                <form action="register_proses.php" method="post" onsubmit="return validateForm()">
+                <form action="proses_registrasi.php" method="post" onsubmit="return validateForm()">
                     <div class="input-group mb-3">
                         <input type="text" id="name" name="name" class="form-control form-control-lg bg-light fs-6" placeholder="Full Name" required>
                     </div>

@@ -69,14 +69,6 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="../../index.php" class="nav-link">
-              <i class="nav-icon far fa-user"></i>
-              <p>
-                Login
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a href="../login/logout.php" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>

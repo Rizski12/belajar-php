@@ -1,5 +1,16 @@
 <?php
-include '../../config/koneksi.php';
+// Masukkan kode koneksi ke database di sini
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "pos_shop";
+
+// Membuat objek koneksi
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
 
 if (isset($_GET["id"])) {
     $id = $_GET["id"];

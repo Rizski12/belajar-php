@@ -1,26 +1,38 @@
 <?php
 session_start();
 
-// Periksa apakah pengguna sudah masuk. Jika tidak, arahkan ke halaman login.
+// Masukkan kode koneksi ke database di sini
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "pos_shop";
+
+// Membuat objek koneksi
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Mengecek apakah pengguna sudah login
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../../index.php');
     exit;
 }
 
-// Ambil nama pengguna dari database berdasarkan ID yang disimpan dalam sesi
+// Sekarang Anda dapat menjalankan query atau operasi database di sini
+// Misalnya:
 $user_id = $_SESSION['user_id'];
-require('../../config/koneksi.php');
-$query = "SELECT name FROM users WHERE id = $user_id";
-$result = mysqli_query($conn, $query);
+$query = "SELECT * FROM users WHERE id = $user_id";
+$result = $conn->query($query);
 
-if (mysqli_num_rows($result) === 1) {
-    $row = mysqli_fetch_assoc($result);
-    $user_name = $row['name'];
+if ($result->num_rows === 1) {
+    $user = $result->fetch_assoc();
+    $user_name = $user['name'];
 } else {
-    // Handle error jika data pengguna tidak ditemukan
     echo "User data not found.";
-    exit;
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -52,6 +64,9 @@ if (mysqli_num_rows($result) === 1) {
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
+    <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" id="server-time" href="#" role="button">
           <i class="far fa-clock"></i>
@@ -281,14 +296,6 @@ if (mysqli_num_rows($result) === 1) {
               <i class="nav-icon fas fa-cube"></i>
               <p>
                 CRUD-Products
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="../../index.php" class="nav-link">
-              <i class="nav-icon far fa-user"></i>
-              <p>
-                Login
               </p>
             </a>
           </li>

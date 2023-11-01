@@ -1,6 +1,19 @@
 <?php
 session_start();
 
+// Masukkan kode koneksi ke database di sini
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "pos_shop";
+
+// Membuat objek koneksi
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
 // Periksa apakah pengguna sudah masuk. Jika tidak, arahkan ke halaman login.
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../../index.php');
@@ -9,7 +22,6 @@ if (!isset($_SESSION['user_id'])) {
 
 // Ambil nama pengguna dari database berdasarkan ID yang disimpan dalam sesi
 $user_id = $_SESSION['user_id'];
-require('../../config/koneksi.php');
 $query = "SELECT name FROM users WHERE id = $user_id";
 $result = mysqli_query($conn, $query);
 
@@ -23,7 +35,6 @@ if (mysqli_num_rows($result) === 1) {
 }
 ?>
 <?php
-include '../../config/koneksi.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $product_name = $_POST["product_name"];
